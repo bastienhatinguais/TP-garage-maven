@@ -43,10 +43,9 @@ public class Voiture {
 	 * @throws java.lang.Exception si la voiture n'est pas dans un garage
 	 */
 	public void sortDuGarage() throws Exception {
-		// Trouver le dernier stationnement de la voiture
-		Stationnement dernierStationnement = myStationnements.get(myStationnements.size() - 1);
-		if (dernierStationnement.estEnCours()) {
-			// Terminer ce stationnement
+		if (this.estDansUnGarage()) {
+			// Trouver le dernier stationnement de la voiture
+			Stationnement dernierStationnement = myStationnements.get(myStationnements.size() - 1);
 			dernierStationnement.terminer();
 		} else {
 			throw new Exception("La voiture n'est pas stationnée actuellement.");
@@ -71,9 +70,8 @@ public class Voiture {
 		if (myStationnements.size() != 0) {
 			Stationnement dernierStationnement = myStationnements.get(myStationnements.size() - 1);
 			return dernierStationnement.estEnCours();
-		} else {
-			return false;
 		}
+		return false;
 	}
 
 	/**
@@ -95,10 +93,13 @@ public class Voiture {
 		String result = "";
 
 		for (Garage garage : this.garagesVisites()) {
+			// afficher garage
 			result += garage.toString() + " :\n";
 			for (Stationnement stationnement : myStationnements) {
-				if (stationnement.getGarage() == garage)
+				if (stationnement.getGarage() == garage) {
+					// afficher stationnement
 					result += stationnement.toString() + "\n";
+				}
 			}
 		}
 		System.out.println(result);
